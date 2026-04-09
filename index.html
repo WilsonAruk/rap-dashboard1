@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rap & Música Urbana — Brasil</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 24px; }
+.container { max-width: 1200px; margin: 0 auto; }
+.hd { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0; margin-bottom: 1.25rem; }
+.hd h1 { font-size: 20px; font-weight: 600; }
+.hd p { font-size: 12px; color: #666; margin-top: 3px; }
+.badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: #e8f4fd; color: #1a6da8; }
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+.mc { background: #fff; border-radius: 10px; padding: 14px 16px; border: 1px solid #e8e8e8; }
+.mc-label { font-size: 12px; color: #888; margin-bottom: 4px; }
+.mc-value { font-size: 22px; font-weight: 600; }
+.mc-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
+.filters { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.fb { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid #ddd; background: #fff; color: #555; cursor: pointer; }
+.fb.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+.si { margin-left: auto; font-size: 13px; padding: 6px 14px; border-radius: 8px; border: 1px solid #ddd; background: #fff; width: 200px; }
+.tw { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden; }
+.thead { display: grid; grid-template-columns: 36px 52px 2fr 1.5fr 1.2fr 120px 70px; padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #e8e8e8; }
+.th { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+.row { display: grid; grid-template-columns: 36px 52px 2fr 1.5fr 1.2fr 120px 70px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; align-items: center; }
+.row:last-child { border-bottom: none; }
+.row:hover { background: #fafafa; }
+.rank { font-size: 14px; font-weight: 600; color: #aaa; }
+.rank.top { color: #1db954; }
+.cover { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+.cover-ph { width: 40px; height: 40px; border-radius: 6px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; }
+.st { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ss { font-size: 11px; color: #aaa; margin-top: 2px; }
+.cell { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell-sec { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; background: #e8f4fd; color: #1a6da8; display: inline-block; white-space: nowrap; max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
+.pop-wrap { display: flex; align-items: center; gap: 5px; }
+.pop-bar { width: 44px; height: 5px; background: #eee; border-radius: 4px; overflow: hidden; }
+.pop-fill { height: 100%; background: #1db954; border-radius: 4px; }
+.gpill { font-size: 10px; padding: 2px 6px; border-radius: 20px; background: #f0f0f0; color: #666; margin-left: 5px; }
+.loading-row { padding: 2.5rem; text-align: center; color: #888; font-size: 14px; }
+.err { color: #c0392b; }
+footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #eee; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hd">
+    <div>
+      <h1>Rap &amp; Música Urbana — Brasil</h1>
+      <p id="lastUpdate">Carregando...</p>
+    </div>
+    <span class="badge">Spotify API</span>
+  </div>
+  <div class="metrics">
+    <div class="mc"><div class="mc-label">Faixas</div><div class="mc-value" id="mTotal">—</div><div class="mc-sub">Rap + trap + hip-hop BR</div></div>
+    <div class="mc"><div class="mc-label">Artistas únicos</div><div class="mc-value" id="mArtists">—</div><div class="mc-sub">Cena nacional</div></div>
+    <div class="mc"><div class="mc-label">Com preview</div><div class="mc-value" id="mPrev">—</div><div class="mc-sub">Ouça 30 seg.</div></div>
+    <div class="mc"><div class="mc-label">Fonte</div><div class="mc-value" style="font-size:15px;margin-top:4px">Spotify</div><div class="mc-sub">Dados em tempo real</div></div>
+  </div>
+  <div class="filters">
+    <span style="font-size:12px;color:#888">Gênero:</span>
+    <button class="fb active" onclick="setFilter('todos',this)">Todos</button>
+    <button class="fb" onclick="setFilter('rap',this)">Rap</button>
+    <button class="fb" onclick="setFilter('trap',this)">Trap</button>
+    <button class="fb" onclick="setFilter('hip-hop',this)">Hip-hop</button>
+    <input class="si" type="text" placeholder="Buscar artista ou música..." oninput="setSearch(this.value)">
+  </div>
+  <div class="tw">
+    <div class="thead">
+      <div class="th">#</div>
+      <div class="th"></div>
+      <div class="th">Música</div>
+      <div class="th">Artista</div>
+      <div class="th">Álbum</div>
+      <div class="th">Gravadora</div>
+      <div class="th">Popular.</div>
+    </div>
+    <div id="tableBody"><div class="loading-row">Iniciando...</div></div>
+  </div>
+  <footer>Dados via Spotify Web API · rap-dashboard1.vercel.app</footer>
+</div>
+<script>
+const BASE_URL = 'https://rap-dashboard1.vercel.app';
+let allTracks = [], currentFilter = 'todos', currentSearch = '';
+const queries = [
+  { q: 'rap brasileiro', genre: 'rap' },
+  { q: 'trap nacional brasil', genre: 'trap' },
+  { q: 'hip hop brasil', genre: 'hip-hop' },
+  { q: 'matuê djonga emicida criolo', genre: 'rap' },
+  { q: 'mc hariel orochi teto xamã azzy', genre: 'trap' },
+];
+function setStatus(msg) { document.getElementById('lastUpdate').textContent = msg; }
+async function getToken() {
+  const res = await fetch(`${BASE_URL}/api/token`);
+  if (!res.ok) throw new Error(`Token HTTP ${res.status}`);
+  const data = await res.json();
+  if (!data.access_token) throw new Error('Sem token: ' + JSON.stringify(data));
+  return data.access_token;
+}
+async function searchTracks(q, token) {
+  const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=20`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json();
+  return data?.tracks?.items || [];
+}
+async function getAlbumLabel(albumId, token) {
+  try {
+    const res = await fetch(`${BASE_URL}/api/album?id=${albumId}`, { headers: { Authorization: `Bearer ${token}` } });
+    const data = await res.json();
+    return data?.label || 'Independente';
+  } catch { return 'Independente'; }
+}
+async function loadAll() {
+  try {
+    setStatus('Autenticando no Spotify...');
+    const token = await getToken();
+    setStatus('Buscando faixas...');
+    const results = await Promise.all(queries.map(({ q, genre }) =>
+      searchTracks(q, token).then(tracks => tracks.map(t => ({ ...t, _genre: genre }))).catch(() => [])
+    ));
+    const seen = new Set();
+    allTracks = results.flat().filter(t => { if (!t || seen.has(t.id)) return false; seen.add(t.id); return true; });
+    if (!allTracks.length) throw new Error('Nenhuma faixa retornada.');
+    setStatus('Buscando gravadoras...');
+    const albumIds = [...new Set(allTracks.map(t => t.album?.id).filter(Boolean))].slice(0, 20);
+    const labelMap = {};
+    await Promise.all(albumIds.map(async id => { labelMap[id] = await getAlbumLabel(id, token); }));
+    allTracks = allTracks.map(t => ({ ...t, _label: labelMap[t.album?.id] || 'Independente' }));
+    const now = new Date();
+    setStatus(`Atualizado ${now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · ${now.toLocaleDateString('pt-BR')} · Spotify API`);
+    document.getElementById('mTotal').textContent = allTracks.length;
+    document.getElementById('mArtists').textContent = new Set(allTracks.flatMap(t => t.artists?.map(a => a.name)||[])).size;
+    document.getElementById('mPrev').textContent = allTracks.filter(t => t.preview_url).length;
+    renderTable();
+  } catch(e) {
+    setStatus('Erro: ' + e.message);
+    document.getElementById('tableBody').innerHTML = `<div class="loading-row err">${e.message}</div>`;
+  }
+}
+function filtered() {
+  let d = allTracks;
+  if (currentFilter !== 'todos') d = d.filter(t => t._genre === currentFilter);
+  if (currentSearch) { const s = currentSearch.toLowerCase(); d = d.filter(t => t.name?.toLowerCase().includes(s) || t.artists?.some(a => a.name.toLowerCase().includes(s))); }
+  return d;
+}
+function renderTable() {
+  const data = filtered();
+  const body = document.getElementById('tableBody');
+  if (!data.length) { body.innerHTML = '<div class="loading-row">Nenhuma faixa encontrada.</div>'; return; }
+  body.innerHTML = data.map((t, i) => {
+    const artists = t.artists?.map(a => a.name).join(', ') || '—';
+    const imgs = t.album?.images || [];
+    const cover = (imgs[2] || imgs[1] || imgs[0])?.url || '';
+    const coverEl = cover ? `<img class="cover" src="${cover}" alt="">` : `<div class="cover-ph">♪</div>`;
+    const ms = t.duration_ms || 0;
+    const dur = ms ? `${Math.floor(ms/60000)}:${String(Math.floor((ms%60000)/1000)).padStart(2,'0')}` : '—';
+    const pop = Math.min(100, Math.max(0, t.popularity || 0));
+    return `<div class="row">
+      <div class="rank ${i<3?'top':''}">${i+1}</div>
+      <div>${coverEl}</div>
+      <div><div class="st">${t.name}<span class="gpill">${t._genre}</span></div><div class="ss">${dur}</div></div>
+      <div class="cell">${artists}</div>
+      <div class="cell-sec">${t.album?.name||'—'}</div>
+      <div><span class="lp" title="${t._label}">${t._label}</span></div>
+      <div><div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}</span></div></div>
+    </div>`;
+  }).join('');
+}
+function setFilter(f, btn) { currentFilter = f; document.querySelectorAll('.fb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTable(); }
+function setSearch(v) { currentSearch = v; renderTable(); }
+loadAll();
+</script>
+</body>
+</html>
