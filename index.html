@@ -100,10 +100,8 @@ async function getToken() {
   if (!data.access_token) throw new Error('Sem token: ' + JSON.stringify(data));
   return data.access_token;
 }
-async function searchTracks(q, token) {
-  const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=20`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+async function searchTracks(q) {
+  const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=20`);
   const data = await res.json();
   return data?.tracks?.items || [];
 }
@@ -119,9 +117,11 @@ async function loadAll() {
     setStatus('Autenticando no Spotify...');
     const token = await getToken();
     setStatus('Buscando faixas...');
-    const results = await Promise.all(queries.map(({ q, genre }) =>
-      searchTracks(q, token).then(tracks => tracks.map(t => ({ ...t, _genre: genre }))).catch(() => [])
-    ));
+    const results = await Promise.all(
+    queries.map(({ q, genre }) =>
+    searchTracks(q).then(tracks => tracks.map(t => ({ ...t, _genre: genre }))).catch(() => [])
+  )
+);
     const seen = new Set();
     allTracks = results.flat().filter(t => { if (!t || seen.has(t.id)) return false; seen.add(t.id); return true; });
     if (!allTracks.length) throw new Error('Nenhuma faixa retornada.');
