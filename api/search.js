@@ -3,12 +3,14 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   try {
-    const { q, limit = 20 } = req.query;
-    if (!q) return res.status(400).json({ error: 'Missing q' });
+    const id = process.env.SPOTIFY_CLIENT_ID;
+    const secret = process.env.SPOTIFY_CLIENT_SECRET;
 
-    const creds = Buffer.from(
-      `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-    ).toString('base64');
+    if (!id || !secret) {
+      return res.status(500).json({ error: 'Vars missing', id: !!id, secret: !!secret });
+    }
+
+    const creds = Buffer.from(`${id}:${secret}`).toString('base64');
 
     const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -19,14 +21,14 @@ module.exports = async function handler(req, res) {
       body: 'grant_type=client_credentials'
     });
 
-    const { access_token } = await tokenRes.json();
-
-    const searchRes = await fetch(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(q)}&type=track&market=BR&limit=${limit}`,
-      { headers: { Authorization: `Bearer ${access_token}` } }
-    );
-
-    return res.status(200).json(await searchRes.json());
+    const tokenText = await tokenRes.text();
+    
+    return res.status(200).json({
+      tokenStatus: tokenRes.status,
+      tokenRaw: tokenText,
+      idLength: id.length,
+      secretLength: secret.length
+    });
 
   } catch(e) {
     return res.status(500).json({ error: e.message });
