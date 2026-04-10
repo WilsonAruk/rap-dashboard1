@@ -30,18 +30,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .rank { font-size: 14px; font-weight: 600; color: #aaa; }
 .rank.top { color: #1db954; }
 .cover { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
-.cover-ph { width: 40px; height: 40px; border-radius: 6px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; }
+.cover-ph { width: 40px; height: 40px; border-radius: 6px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .st { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ss { font-size: 11px; color: #aaa; margin-top: 2px; }
 .cell { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cell-sec { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lp { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; background: #e8f4fd; color: #1a6da8; display: inline-block; white-space: nowrap; max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
+.gpill { font-size: 10px; padding: 2px 6px; border-radius: 20px; background: #f0f0f0; color: #666; margin-left: 5px; }
 .pop-wrap { display: flex; align-items: center; gap: 5px; }
 .pop-bar { width: 44px; height: 5px; background: #eee; border-radius: 4px; overflow: hidden; }
 .pop-fill { height: 100%; background: #1db954; border-radius: 4px; }
-.gpill { font-size: 10px; padding: 2px 6px; border-radius: 20px; background: #f0f0f0; color: #666; margin-left: 5px; }
+.playbtn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.playbtn.playing { background: #1db954; border-color: #1db954; color: #fff; }
 .loading-row { padding: 2.5rem; text-align: center; color: #888; font-size: 14px; }
 .err { color: #c0392b; }
+.player-bar { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 12px 16px; margin-top: 1rem; display: none; align-items: center; gap: 12px; }
+.player-bar.visible { display: flex; }
+.player-info { flex: 1; min-width: 0; }
+.player-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-sub { font-size: 12px; color: #888; }
+.prog-wrap { flex: 2; height: 4px; background: #eee; border-radius: 4px; overflow: hidden; }
+.prog-fill { height: 100%; background: #1db954; border-radius: 4px; width: 0%; }
+.dur { font-size: 12px; color: #888; min-width: 32px; text-align: right; }
 footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #eee; }
 </style>
 </head>
@@ -52,13 +62,13 @@ footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; b
       <h1>Rap &amp; Música Urbana — Brasil</h1>
       <p id="lastUpdate">Carregando...</p>
     </div>
-    <span class="badge">Spotify API</span>
+    <span class="badge">Deezer API</span>
   </div>
   <div class="metrics">
     <div class="mc"><div class="mc-label">Faixas</div><div class="mc-value" id="mTotal">—</div><div class="mc-sub">Rap + trap + hip-hop BR</div></div>
     <div class="mc"><div class="mc-label">Artistas únicos</div><div class="mc-value" id="mArtists">—</div><div class="mc-sub">Cena nacional</div></div>
     <div class="mc"><div class="mc-label">Com preview</div><div class="mc-value" id="mPrev">—</div><div class="mc-sub">Ouça 30 seg.</div></div>
-    <div class="mc"><div class="mc-label">Fonte</div><div class="mc-value" style="font-size:15px;margin-top:4px">Spotify</div><div class="mc-sub">Dados em tempo real</div></div>
+    <div class="mc"><div class="mc-label">Fonte</div><div class="mc-value" style="font-size:15px;margin-top:4px">Deezer</div><div class="mc-sub">Dados em tempo real</div></div>
   </div>
   <div class="filters">
     <span style="font-size:12px;color:#888">Gênero:</span>
@@ -76,102 +86,162 @@ footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; b
       <div class="th">Artista</div>
       <div class="th">Álbum</div>
       <div class="th">Gravadora</div>
-      <div class="th">Popular.</div>
+      <div class="th">Play</div>
     </div>
     <div id="tableBody"><div class="loading-row">Iniciando...</div></div>
   </div>
-  <footer>Dados via Spotify Web API · rap-dashboard1.vercel.app</footer>
+  <div class="player-bar" id="playerBar">
+    <div id="playerCover" style="width:40px;height:40px;border-radius:6px;background:#f0f0f0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;">♪</div>
+    <div class="player-info">
+      <div class="player-title" id="playerTitle">—</div>
+      <div class="player-sub" id="playerArtist">—</div>
+    </div>
+    <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+    <div class="dur" id="durEl">0:00</div>
+    <button class="playbtn" onclick="stopAudio()" style="flex-shrink:0">&#9646;&#9646;</button>
+  </div>
+  <footer>Dados via Deezer API · rap-dashboard1.vercel.app</footer>
 </div>
+<audio id="audioEl"></audio>
 <script>
 const BASE_URL = 'https://rap-dashboard1.vercel.app';
-let allTracks = [], currentFilter = 'todos', currentSearch = '';
+let allTracks = [], currentFilter = 'todos', currentSearch = '', currentBtn = null, progInterval = null;
+
 const queries = [
   { q: 'rap brasileiro', genre: 'rap' },
-  { q: 'trap nacional brasil', genre: 'trap' },
-  { q: 'hip hop brasil', genre: 'hip-hop' },
+  { q: 'trap brasil', genre: 'trap' },
+  { q: 'hip hop nacional', genre: 'hip-hop' },
   { q: 'matuê djonga emicida criolo', genre: 'rap' },
-  { q: 'mc hariel orochi teto xamã azzy', genre: 'trap' },
+  { q: 'mc hariel orochi teto xamã', genre: 'trap' },
 ];
+
 function setStatus(msg) { document.getElementById('lastUpdate').textContent = msg; }
-async function getToken() {
-  const res = await fetch(`${BASE_URL}/api/token`);
-  if (!res.ok) throw new Error(`Token HTTP ${res.status}`);
+
+async function searchDeezer(q, genre) {
+  const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=25`);
   const data = await res.json();
-  if (!data.access_token) throw new Error('Sem token: ' + JSON.stringify(data));
-  return data.access_token;
+  return (data.data || []).map(t => ({
+    id: t.id,
+    name: t.title,
+    artist: t.artist.name,
+    album: t.album.title,
+    albumId: t.album.id,
+    cover: t.album.cover_small,
+    preview: t.preview,
+    duration: t.duration,
+    rank: t.rank,
+    _genre: genre,
+    _label: 'Independente'
+  }));
 }
-async function searchTracks(q) {
-  const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=20`);
-  const data = await res.json();
-  return data?.tracks?.items || [];
-}
-async function getAlbumLabel(albumId, token) {
+
+async function getAlbumLabel(albumId) {
   try {
-    const res = await fetch(`${BASE_URL}/api/album?id=${albumId}`, { headers: { Authorization: `Bearer ${token}` } });
+    const res = await fetch(`${BASE_URL}/api/album?id=${albumId}`);
     const data = await res.json();
     return data?.label || 'Independente';
   } catch { return 'Independente'; }
 }
+
 async function loadAll() {
   try {
-    setStatus('Autenticando no Spotify...');
-    const token = await getToken();
-    setStatus('Buscando faixas...');
-    const results = await Promise.all(
-    queries.map(({ q, genre }) =>
-    searchTracks(q).then(tracks => tracks.map(t => ({ ...t, _genre: genre }))).catch(() => [])
-  )
-);
+    setStatus('Buscando faixas na Deezer...');
+    const results = await Promise.all(queries.map(({ q, genre }) => searchDeezer(q, genre).catch(() => [])));
     const seen = new Set();
-    allTracks = results.flat().filter(t => { if (!t || seen.has(t.id)) return false; seen.add(t.id); return true; });
+    allTracks = results.flat().filter(t => { if (seen.has(t.id)) return false; seen.add(t.id); return true; });
     if (!allTracks.length) throw new Error('Nenhuma faixa retornada.');
+
     setStatus('Buscando gravadoras...');
-    const albumIds = [...new Set(allTracks.map(t => t.album?.id).filter(Boolean))].slice(0, 20);
+    const albumIds = [...new Set(allTracks.map(t => t.albumId).filter(Boolean))].slice(0, 20);
     const labelMap = {};
-    await Promise.all(albumIds.map(async id => { labelMap[id] = await getAlbumLabel(id, token); }));
-    allTracks = allTracks.map(t => ({ ...t, _label: labelMap[t.album?.id] || 'Independente' }));
+    await Promise.all(albumIds.map(async id => { labelMap[id] = await getAlbumLabel(id); }));
+    allTracks = allTracks.map(t => ({ ...t, _label: labelMap[t.albumId] || 'Independente' }));
+
     const now = new Date();
-    setStatus(`Atualizado ${now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · ${now.toLocaleDateString('pt-BR')} · Spotify API`);
+    setStatus(`Atualizado ${now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · ${now.toLocaleDateString('pt-BR')} · Deezer API`);
     document.getElementById('mTotal').textContent = allTracks.length;
-    document.getElementById('mArtists').textContent = new Set(allTracks.flatMap(t => t.artists?.map(a => a.name)||[])).size;
-    document.getElementById('mPrev').textContent = allTracks.filter(t => t.preview_url).length;
+    document.getElementById('mArtists').textContent = new Set(allTracks.map(t => t.artist)).size;
+    document.getElementById('mPrev').textContent = allTracks.filter(t => t.preview).length;
     renderTable();
   } catch(e) {
     setStatus('Erro: ' + e.message);
     document.getElementById('tableBody').innerHTML = `<div class="loading-row err">${e.message}</div>`;
   }
 }
+
 function filtered() {
   let d = allTracks;
   if (currentFilter !== 'todos') d = d.filter(t => t._genre === currentFilter);
-  if (currentSearch) { const s = currentSearch.toLowerCase(); d = d.filter(t => t.name?.toLowerCase().includes(s) || t.artists?.some(a => a.name.toLowerCase().includes(s))); }
+  if (currentSearch) { const s = currentSearch.toLowerCase(); d = d.filter(t => t.name.toLowerCase().includes(s) || t.artist.toLowerCase().includes(s)); }
   return d;
 }
+
 function renderTable() {
   const data = filtered();
   const body = document.getElementById('tableBody');
   if (!data.length) { body.innerHTML = '<div class="loading-row">Nenhuma faixa encontrada.</div>'; return; }
+  const playIcon = '&#9654;';
   body.innerHTML = data.map((t, i) => {
-    const artists = t.artists?.map(a => a.name).join(', ') || '—';
-    const imgs = t.album?.images || [];
-    const cover = (imgs[2] || imgs[1] || imgs[0])?.url || '';
-    const coverEl = cover ? `<img class="cover" src="${cover}" alt="">` : `<div class="cover-ph">♪</div>`;
-    const ms = t.duration_ms || 0;
-    const dur = ms ? `${Math.floor(ms/60000)}:${String(Math.floor((ms%60000)/1000)).padStart(2,'0')}` : '—';
-    const pop = Math.min(100, Math.max(0, t.popularity || 0));
+    const coverEl = t.cover ? `<img class="cover" src="${t.cover}" alt="">` : `<div class="cover-ph">♪</div>`;
+    const dur = t.duration ? `${Math.floor(t.duration/60)}:${String(t.duration%60).padStart(2,'0')}` : '—';
+    const pop = Math.min(100, Math.round((t.rank||0)/10000));
+    const popEl = `<div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}</span></div>`;
+    const prev = (t.preview||'').replace(/'/g,"\\'");
+    const tit = t.name.replace(/'/g,"\\'");
+    const art = t.artist.replace(/'/g,"\\'");
+    const cov = (t.cover||'').replace(/'/g,"\\'");
+    const playBtn = t.preview
+      ? `<button class="playbtn" id="pbtn-${t.id}" onclick="togglePlay('${t.id}','${prev}','${tit}','${art}','${cov}')">${playIcon}</button>`
+      : `<span style="color:#ddd;font-size:12px">—</span>`;
     return `<div class="row">
       <div class="rank ${i<3?'top':''}">${i+1}</div>
       <div>${coverEl}</div>
       <div><div class="st">${t.name}<span class="gpill">${t._genre}</span></div><div class="ss">${dur}</div></div>
-      <div class="cell">${artists}</div>
-      <div class="cell-sec">${t.album?.name||'—'}</div>
+      <div class="cell">${t.artist}</div>
+      <div class="cell-sec">${t.album}</div>
       <div><span class="lp" title="${t._label}">${t._label}</span></div>
-      <div><div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}</span></div></div>
+      <div>${playBtn}</div>
     </div>`;
   }).join('');
 }
+
 function setFilter(f, btn) { currentFilter = f; document.querySelectorAll('.fb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTable(); }
 function setSearch(v) { currentSearch = v; renderTable(); }
+
+function stopAudio() {
+  const audio = document.getElementById('audioEl');
+  audio.pause(); audio.src = '';
+  if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn.innerHTML = '&#9654;'; }
+  clearInterval(progInterval);
+  document.getElementById('playerBar').classList.remove('visible');
+  document.getElementById('progFill').style.width = '0%';
+  currentBtn = null;
+}
+
+function togglePlay(id, preview, title, artist, cover) {
+  const btn = document.getElementById(`pbtn-${id}`);
+  const audio = document.getElementById('audioEl');
+  if (currentBtn === btn && !audio.paused) { stopAudio(); return; }
+  stopAudio();
+  currentBtn = btn;
+  btn.classList.add('playing'); btn.innerHTML = '&#9646;&#9646;';
+  document.getElementById('playerTitle').textContent = title;
+  document.getElementById('playerArtist').textContent = artist;
+  const pc = document.getElementById('playerCover');
+  pc.innerHTML = cover ? `<img src="${cover}" style="width:40px;height:40px;border-radius:6px;object-fit:cover">` : '♪';
+  document.getElementById('playerBar').classList.add('visible');
+  audio.src = preview; audio.play().catch(()=>{});
+  clearInterval(progInterval);
+  progInterval = setInterval(() => {
+    if (audio.duration) {
+      document.getElementById('progFill').style.width = ((audio.currentTime/audio.duration)*100).toFixed(1)+'%';
+      const s = Math.floor(audio.currentTime);
+      document.getElementById('durEl').textContent = `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+    }
+  }, 500);
+  audio.onended = () => stopAudio();
+}
+
 loadAll();
 </script>
 </body>
