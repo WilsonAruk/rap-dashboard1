@@ -6,78 +6,87 @@
 <title>Rap & Música Urbana — Brasil</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f13; color: #e8e8f0; min-height: 100vh; padding: 28px 20px; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f8fa; color: #1a1a2e; min-height: 100vh; padding: 28px 20px; }
 .container { max-width: 1280px; margin: 0 auto; }
 
-.hd { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1.25rem; border-bottom: 1px solid #222230; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
-.hd-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #fff; }
-.hd-left p { font-size: 12px; color: #666; margin-top: 4px; }
+.hd { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1.25rem; border-bottom: 2px solid #ebebf5; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
+.hd-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #1a1a2e; }
+.hd-left p { font-size: 12px; color: #888; margin-top: 4px; }
 .hd-right { display: flex; align-items: center; gap: 10px; }
 .badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.03em; }
-.badge-deezer { background: #1a1a2e; color: #a78bfa; border: 1px solid #312850; }
-.badge-live { background: #0f2a1a; color: #4ade80; border: 1px solid #1a4a2a; display: flex; align-items: center; gap: 5px; }
-.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; display: inline-block; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.badge-deezer { background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
+.badge-live { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 5px; }
+.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #16a34a; display: inline-block; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 .metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 1.5rem; }
-.mc { background: #16161f; border: 1px solid #222230; border-radius: 14px; padding: 16px 20px; position: relative; overflow: hidden; }
-.mc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #7c3aed, #a78bfa); opacity: 0.6; }
-.mc-label { font-size: 11px; color: #555570; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
-.mc-value { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
-.mc-sub { font-size: 11px; color: #44445a; margin-top: 6px; }
+.mc { background: #fff; border: 1px solid #ebebf5; border-radius: 14px; padding: 16px 20px; position: relative; overflow: hidden; }
+.mc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.mc-label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.mc-value { font-size: 28px; font-weight: 700; color: #1a1a2e; line-height: 1; }
+.mc-sub { font-size: 11px; color: #bbb; margin-top: 6px; }
+.mc-link { font-size: 13px; font-weight: 600; margin-top: 6px; }
+.mc-link a { color: #7c3aed; text-decoration: none; border-bottom: 2px solid #ddd6fe; padding-bottom: 1px; }
+.mc-link a:hover { color: #6d28d9; border-color: #7c3aed; }
+
+.radio-banner { background: #fff; border: 1px solid #ebebf5; border-left: 4px solid #7c3aed; border-radius: 10px; padding: 12px 18px; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.radio-banner-text { font-size: 13px; color: #555; }
+.radio-banner-text strong { color: #1a1a2e; }
+.radio-banner-link { font-size: 13px; font-weight: 600; color: #fff; background: #7c3aed; padding: 7px 16px; border-radius: 8px; text-decoration: none; white-space: nowrap; }
+.radio-banner-link:hover { background: #6d28d9; }
 
 .toolbar { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
-.filter-label { font-size: 12px; color: #44445a; margin-right: 4px; }
-.fb { font-size: 12px; padding: 6px 16px; border-radius: 20px; border: 1px solid #222230; background: #16161f; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
-.fb:hover { border-color: #7c3aed; color: #a78bfa; }
-.fb.active { background: #2d1b69; border-color: #7c3aed; color: #a78bfa; }
-.si { margin-left: auto; font-size: 13px; padding: 7px 14px; border-radius: 10px; border: 1px solid #222230; background: #16161f; color: #e8e8f0; width: 220px; outline: none; }
-.si:focus { border-color: #7c3aed; }
-.si::placeholder { color: #44445a; }
+.filter-label { font-size: 12px; color: #aaa; margin-right: 4px; }
+.fb { font-size: 12px; padding: 6px 16px; border-radius: 20px; border: 1px solid #e0e0f0; background: #fff; color: #777; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.fb:hover { border-color: #7c3aed; color: #7c3aed; }
+.fb.active { background: #7c3aed; border-color: #7c3aed; color: #fff; font-weight: 600; }
+.si { margin-left: auto; font-size: 13px; padding: 7px 14px; border-radius: 10px; border: 1px solid #e0e0f0; background: #fff; color: #1a1a2e; width: 220px; outline: none; }
+.si:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px #ede9fe; }
+.si::placeholder { color: #bbb; }
 
-.tw { background: #16161f; border: 1px solid #222230; border-radius: 16px; overflow: hidden; }
-.thead { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; background: #111118; border-bottom: 1px solid #222230; }
-.th { font-size: 10px; font-weight: 700; color: #44445a; text-transform: uppercase; letter-spacing: 0.08em; }
-.row { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; border-bottom: 1px solid #1a1a26; align-items: center; transition: background 0.12s; cursor: default; }
+.tw { background: #fff; border: 1px solid #ebebf5; border-radius: 16px; overflow: hidden; }
+.thead { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; background: #fafafa; border-bottom: 1px solid #ebebf5; }
+.th { font-size: 10px; font-weight: 700; color: #bbb; text-transform: uppercase; letter-spacing: 0.08em; }
+.row { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; border-bottom: 1px solid #f5f5fa; align-items: center; transition: background 0.12s; }
 .row:last-child { border-bottom: none; }
-.row:hover { background: #1e1e2e; }
-.rank { font-size: 14px; font-weight: 700; color: #33334a; }
-.rank.top1 { color: #fbbf24; }
+.row:hover { background: #faf8ff; }
+.rank { font-size: 14px; font-weight: 700; color: #ddd; }
+.rank.top1 { color: #f59e0b; }
 .rank.top2 { color: #94a3b8; }
 .rank.top3 { color: #cd7c2f; }
 .cover { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
-.cover-ph { width: 42px; height: 42px; border-radius: 8px; background: #1e1e2e; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #33334a; }
-.song-name { font-size: 13px; font-weight: 600; color: #e8e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.song-dur { font-size: 11px; color: #44445a; margin-top: 3px; }
-.gpill { font-size: 10px; padding: 2px 7px; border-radius: 20px; background: #1e1e35; color: #7c6aad; border: 1px solid #2d2850; margin-left: 6px; font-weight: 600; vertical-align: middle; }
-.cell { font-size: 13px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cell-sec { font-size: 12px; color: #555570; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lp { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600; display: inline-block; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; background: #1a1a2e; color: #818cf8; border: 1px solid #2d2d50; }
+.cover-ph { width: 42px; height: 42px; border-radius: 8px; background: #f5f5fa; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #ccc; }
+.song-name { font-size: 13px; font-weight: 600; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-dur { font-size: 11px; color: #bbb; margin-top: 3px; }
+.gpill { font-size: 10px; padding: 2px 7px; border-radius: 20px; background: #ede9fe; color: #7c3aed; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+.cell { font-size: 13px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell-sec { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600; display: inline-block; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; background: #ede9fe; color: #7c3aed; border: 1px solid #ddd6fe; }
 .pop-wrap { display: flex; align-items: center; gap: 6px; }
-.pop-bar { flex: 1; height: 4px; background: #222230; border-radius: 4px; overflow: hidden; max-width: 44px; }
+.pop-bar { flex: 1; height: 4px; background: #f0f0f8; border-radius: 4px; overflow: hidden; max-width: 44px; }
 .pop-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 4px; }
-.pop-num { font-size: 11px; color: #555570; min-width: 24px; }
-.playbtn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #2d2850; background: #1a1a2e; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #a78bfa; transition: all 0.15s; }
-.playbtn:hover { background: #2d1b69; border-color: #7c3aed; }
-.playbtn.playing { background: #7c3aed; border-color: #7c3aed; color: #fff; }
-.loading-row { padding: 3rem; text-align: center; color: #44445a; font-size: 14px; }
-.err { color: #f87171; }
+.pop-num { font-size: 11px; color: #bbb; min-width: 24px; }
+.playbtn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd6fe; background: #ede9fe; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #7c3aed; transition: all 0.15s; }
+.playbtn:hover { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+.playbtn.playing { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+.loading-row { padding: 3rem; text-align: center; color: #bbb; font-size: 14px; }
+.err { color: #ef4444; }
 
-.player-bar { background: #16161f; border: 1px solid #222230; border-radius: 16px; padding: 14px 20px; margin-top: 1rem; display: none; align-items: center; gap: 14px; }
+.player-bar { background: #fff; border: 1px solid #ebebf5; border-top: 3px solid #7c3aed; border-radius: 16px; padding: 14px 20px; margin-top: 1rem; display: none; align-items: center; gap: 14px; }
 .player-bar.visible { display: flex; }
-.player-cover { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; overflow: hidden; background: #1e1e2e; display: flex; align-items: center; justify-content: center; color: #33334a; font-size: 18px; }
+.player-cover { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; overflow: hidden; background: #f5f5fa; display: flex; align-items: center; justify-content: center; color: #ccc; font-size: 18px; }
 .player-info { flex: 1; min-width: 0; }
-.player-title { font-size: 13px; font-weight: 600; color: #e8e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player-artist { font-size: 12px; color: #666; margin-top: 2px; }
-.player-tag { font-size: 10px; color: #33334a; margin-top: 2px; }
-.prog-wrap { flex: 2; height: 3px; background: #222230; border-radius: 4px; overflow: hidden; }
+.player-title { font-size: 13px; font-weight: 600; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-artist { font-size: 12px; color: #888; margin-top: 2px; }
+.player-tag { font-size: 10px; color: #bbb; margin-top: 2px; }
+.prog-wrap { flex: 2; height: 4px; background: #f0f0f8; border-radius: 4px; overflow: hidden; }
 .prog-fill { height: 100%; background: linear-gradient(90deg,#7c3aed,#a78bfa); border-radius: 4px; width: 0%; transition: width 0.5s linear; }
-.dur { font-size: 12px; color: #44445a; min-width: 36px; text-align: right; }
-.stop-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #2d2850; background: #1a1a2e; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #a78bfa; flex-shrink: 0; }
+.dur { font-size: 12px; color: #aaa; min-width: 36px; text-align: right; }
+.stop-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd6fe; background: #ede9fe; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #7c3aed; flex-shrink: 0; }
 
-.footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #33334a; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #1a1a26; }
-.footer a { color: #7c6aad; text-decoration: none; border-bottom: 1px solid #2d2850; padding-bottom: 1px; }
-.footer a:hover { color: #a78bfa; border-color: #7c3aed; }
+.footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #bbb; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #ebebf5; }
+.footer a { color: #7c3aed; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
 
 @media (max-width: 768px) {
   .metrics { grid-template-columns: repeat(2,1fr); }
@@ -105,7 +114,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
     <div class="mc"><div class="mc-label">Faixas</div><div class="mc-value" id="mTotal">—</div><div class="mc-sub">Rap + trap + hip-hop BR</div></div>
     <div class="mc"><div class="mc-label">Artistas únicos</div><div class="mc-value" id="mArtists">—</div><div class="mc-sub">Cena nacional</div></div>
     <div class="mc"><div class="mc-label">Com preview</div><div class="mc-value" id="mPrev">—</div><div class="mc-sub">Ouça 30 seg.</div></div>
-    <div class="mc"><div class="mc-label">Ranking rádios BR</div><div class="mc-value" style="font-size:13px;margin-top:6px"><a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank" style="color:#a78bfa;text-decoration:none;border-bottom:1px solid #2d2850;padding-bottom:2px">maistocadas.mus.br ↗</a></div><div class="mc-sub">7.000+ emissoras BR</div></div>
+    <div class="mc">
+      <div class="mc-label">Ranking rádios BR</div>
+      <div class="mc-link"><a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank">maistocadas.mus.br ↗</a></div>
+      <div class="mc-sub">7.000+ emissoras · AM, FM, Web</div>
+    </div>
+  </div>
+
+  <div class="radio-banner">
+    <div class="radio-banner-text">
+      <strong>Execuções em rádio:</strong> para ver quantas vezes cada música tocou nas rádios brasileiras, acesse o ranking oficial com dados de 7.000+ emissoras.
+    </div>
+    <a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank" class="radio-banner-link">Ver ranking de rádios ↗</a>
   </div>
 
   <div class="toolbar">
@@ -146,7 +166,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 
   <div class="footer">
     <span>Dados em tempo real via Deezer API · Popularidade = índice relativo Deezer (0–100)</span>
-    <span>Execuções em rádio: <a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank">maistocadas.mus.br</a> · <a href="https://www4.ecad.org.br/ranking/" target="_blank">eCad Ranking</a></span>
+    <span>
+      Execuções em rádio:
+      <a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank">maistocadas.mus.br</a>
+      &nbsp;·&nbsp;
+      <a href="https://www4.ecad.org.br/ranking/" target="_blank">eCad Ranking</a>
+    </span>
   </div>
 </div>
 
@@ -237,7 +262,7 @@ function renderTable() {
     const cov = (t.cover||'').replace(/'/g,"\\'");
     const playBtn = t.preview
       ? `<button class="playbtn" id="pbtn-${t.id}" onclick="togglePlay('${t.id}','${prev}','${tit}','${art}','${cov}')">${playIcon}</button>`
-      : `<span style="color:#2a2a3a;font-size:12px">—</span>`;
+      : `<span style="color:#ddd;font-size:12px">—</span>`;
     return `<div class="row">
       <div class="rank ${rankClass(i)}">${i+1}</div>
       <div>${coverEl}</div>
