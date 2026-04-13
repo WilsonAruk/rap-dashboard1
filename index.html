@@ -87,6 +87,7 @@ footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; b
       <div class="th">Álbum</div>
       <div class="th">Gravadora</div>
       <div class="th">Play</div>
+      <div class="th">Popularidade</div>
     </div>
     <div id="tableBody"><div class="loading-row">Iniciando...</div></div>
   </div>
@@ -185,7 +186,7 @@ function renderTable() {
     const coverEl = t.cover ? `<img class="cover" src="${t.cover}" alt="">` : `<div class="cover-ph">♪</div>`;
     const dur = t.duration ? `${Math.floor(t.duration/60)}:${String(t.duration%60).padStart(2,'0')}` : '—';
     const pop = Math.min(100, Math.round((t.rank||0)/10000));
-    const popEl = `<div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}</span></div>`;
+    const popEl = `<div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}/100</span></div>`;
     const prev = (t.preview||'').replace(/'/g,"\\'");
     const tit = t.name.replace(/'/g,"\\'");
     const art = t.artist.replace(/'/g,"\\'");
