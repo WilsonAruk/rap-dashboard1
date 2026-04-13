@@ -6,78 +6,117 @@
 <title>Rap & Música Urbana — Brasil</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 24px; }
-.container { max-width: 1200px; margin: 0 auto; }
-.hd { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0; margin-bottom: 1.25rem; }
-.hd h1 { font-size: 20px; font-weight: 600; }
-.hd p { font-size: 12px; color: #666; margin-top: 3px; }
-.badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: #e8f4fd; color: #1a6da8; }
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.25rem; }
-.mc { background: #fff; border-radius: 10px; padding: 14px 16px; border: 1px solid #e8e8e8; }
-.mc-label { font-size: 12px; color: #888; margin-bottom: 4px; }
-.mc-value { font-size: 22px; font-weight: 600; }
-.mc-sub { font-size: 11px; color: #aaa; margin-top: 2px; }
-.filters { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
-.fb { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid #ddd; background: #fff; color: #555; cursor: pointer; }
-.fb.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
-.si { margin-left: auto; font-size: 13px; padding: 6px 14px; border-radius: 8px; border: 1px solid #ddd; background: #fff; width: 200px; }
-.tw { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden; }
-.thead { display: grid; grid-template-columns: 36px 52px 2fr 1.5fr 1.2fr 120px 70px; padding: 10px 16px; background: #fafafa; border-bottom: 1px solid #e8e8e8; }
-.th { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-.row { display: grid; grid-template-columns: 36px 52px 2fr 1.5fr 1.2fr 120px 70px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; align-items: center; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f13; color: #e8e8f0; min-height: 100vh; padding: 28px 20px; }
+.container { max-width: 1280px; margin: 0 auto; }
+
+.hd { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1.25rem; border-bottom: 1px solid #222230; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 12px; }
+.hd-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; color: #fff; }
+.hd-left p { font-size: 12px; color: #666; margin-top: 4px; }
+.hd-right { display: flex; align-items: center; gap: 10px; }
+.badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 600; letter-spacing: 0.03em; }
+.badge-deezer { background: #1a1a2e; color: #a78bfa; border: 1px solid #312850; }
+.badge-live { background: #0f2a1a; color: #4ade80; border: 1px solid #1a4a2a; display: flex; align-items: center; gap: 5px; }
+.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; display: inline-block; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 1.5rem; }
+.mc { background: #16161f; border: 1px solid #222230; border-radius: 14px; padding: 16px 20px; position: relative; overflow: hidden; }
+.mc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #7c3aed, #a78bfa); opacity: 0.6; }
+.mc-label { font-size: 11px; color: #555570; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.mc-value { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; }
+.mc-sub { font-size: 11px; color: #44445a; margin-top: 6px; }
+
+.toolbar { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
+.filter-label { font-size: 12px; color: #44445a; margin-right: 4px; }
+.fb { font-size: 12px; padding: 6px 16px; border-radius: 20px; border: 1px solid #222230; background: #16161f; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.fb:hover { border-color: #7c3aed; color: #a78bfa; }
+.fb.active { background: #2d1b69; border-color: #7c3aed; color: #a78bfa; }
+.si { margin-left: auto; font-size: 13px; padding: 7px 14px; border-radius: 10px; border: 1px solid #222230; background: #16161f; color: #e8e8f0; width: 220px; outline: none; }
+.si:focus { border-color: #7c3aed; }
+.si::placeholder { color: #44445a; }
+
+.tw { background: #16161f; border: 1px solid #222230; border-radius: 16px; overflow: hidden; }
+.thead { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; background: #111118; border-bottom: 1px solid #222230; }
+.th { font-size: 10px; font-weight: 700; color: #44445a; text-transform: uppercase; letter-spacing: 0.08em; }
+.row { display: grid; grid-template-columns: 40px 52px 2.2fr 1.4fr 1.2fr 130px 70px; padding: 12px 20px; border-bottom: 1px solid #1a1a26; align-items: center; transition: background 0.12s; cursor: default; }
 .row:last-child { border-bottom: none; }
-.row:hover { background: #fafafa; }
-.rank { font-size: 14px; font-weight: 600; color: #aaa; }
-.rank.top { color: #1db954; }
-.cover { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
-.cover-ph { width: 40px; height: 40px; border-radius: 6px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.st { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ss { font-size: 11px; color: #aaa; margin-top: 2px; }
-.cell { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cell-sec { font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lp { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; background: #e8f4fd; color: #1a6da8; display: inline-block; white-space: nowrap; max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
-.gpill { font-size: 10px; padding: 2px 6px; border-radius: 20px; background: #f0f0f0; color: #666; margin-left: 5px; }
-.pop-wrap { display: flex; align-items: center; gap: 5px; }
-.pop-bar { width: 44px; height: 5px; background: #eee; border-radius: 4px; overflow: hidden; }
-.pop-fill { height: 100%; background: #1db954; border-radius: 4px; }
-.playbtn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; }
-.playbtn.playing { background: #1db954; border-color: #1db954; color: #fff; }
-.loading-row { padding: 2.5rem; text-align: center; color: #888; font-size: 14px; }
-.err { color: #c0392b; }
-.player-bar { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 12px 16px; margin-top: 1rem; display: none; align-items: center; gap: 12px; }
+.row:hover { background: #1e1e2e; }
+.rank { font-size: 14px; font-weight: 700; color: #33334a; }
+.rank.top1 { color: #fbbf24; }
+.rank.top2 { color: #94a3b8; }
+.rank.top3 { color: #cd7c2f; }
+.cover { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
+.cover-ph { width: 42px; height: 42px; border-radius: 8px; background: #1e1e2e; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #33334a; }
+.song-name { font-size: 13px; font-weight: 600; color: #e8e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-dur { font-size: 11px; color: #44445a; margin-top: 3px; }
+.gpill { font-size: 10px; padding: 2px 7px; border-radius: 20px; background: #1e1e35; color: #7c6aad; border: 1px solid #2d2850; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+.cell { font-size: 13px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cell-sec { font-size: 12px; color: #555570; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 600; display: inline-block; white-space: nowrap; max-width: 120px; overflow: hidden; text-overflow: ellipsis; background: #1a1a2e; color: #818cf8; border: 1px solid #2d2d50; }
+.pop-wrap { display: flex; align-items: center; gap: 6px; }
+.pop-bar { flex: 1; height: 4px; background: #222230; border-radius: 4px; overflow: hidden; max-width: 44px; }
+.pop-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); border-radius: 4px; }
+.pop-num { font-size: 11px; color: #555570; min-width: 24px; }
+.playbtn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #2d2850; background: #1a1a2e; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #a78bfa; transition: all 0.15s; }
+.playbtn:hover { background: #2d1b69; border-color: #7c3aed; }
+.playbtn.playing { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+.loading-row { padding: 3rem; text-align: center; color: #44445a; font-size: 14px; }
+.err { color: #f87171; }
+
+.player-bar { background: #16161f; border: 1px solid #222230; border-radius: 16px; padding: 14px 20px; margin-top: 1rem; display: none; align-items: center; gap: 14px; }
 .player-bar.visible { display: flex; }
+.player-cover { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; overflow: hidden; background: #1e1e2e; display: flex; align-items: center; justify-content: center; color: #33334a; font-size: 18px; }
 .player-info { flex: 1; min-width: 0; }
-.player-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player-sub { font-size: 12px; color: #888; }
-.prog-wrap { flex: 2; height: 4px; background: #eee; border-radius: 4px; overflow: hidden; }
-.prog-fill { height: 100%; background: #1db954; border-radius: 4px; width: 0%; }
-.dur { font-size: 12px; color: #888; min-width: 32px; text-align: right; }
-footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #eee; }
+.player-title { font-size: 13px; font-weight: 600; color: #e8e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-artist { font-size: 12px; color: #666; margin-top: 2px; }
+.player-tag { font-size: 10px; color: #33334a; margin-top: 2px; }
+.prog-wrap { flex: 2; height: 3px; background: #222230; border-radius: 4px; overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg,#7c3aed,#a78bfa); border-radius: 4px; width: 0%; transition: width 0.5s linear; }
+.dur { font-size: 12px; color: #44445a; min-width: 36px; text-align: right; }
+.stop-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #2d2850; background: #1a1a2e; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #a78bfa; flex-shrink: 0; }
+
+.footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 11px; color: #33334a; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #1a1a26; }
+.footer a { color: #7c6aad; text-decoration: none; border-bottom: 1px solid #2d2850; padding-bottom: 1px; }
+.footer a:hover { color: #a78bfa; border-color: #7c3aed; }
+
+@media (max-width: 768px) {
+  .metrics { grid-template-columns: repeat(2,1fr); }
+  .thead, .row { grid-template-columns: 32px 44px 2fr 1.3fr 110px; }
+  .th:nth-child(5), .row > div:nth-child(5),
+  .th:nth-child(7), .row > div:nth-child(7) { display: none; }
+}
 </style>
 </head>
 <body>
 <div class="container">
+
   <div class="hd">
-    <div>
+    <div class="hd-left">
       <h1>Rap &amp; Música Urbana — Brasil</h1>
       <p id="lastUpdate">Carregando...</p>
     </div>
-    <span class="badge">Deezer API</span>
+    <div class="hd-right">
+      <span class="badge badge-live">Ao vivo</span>
+      <span class="badge badge-deezer">Deezer API</span>
+    </div>
   </div>
+
   <div class="metrics">
     <div class="mc"><div class="mc-label">Faixas</div><div class="mc-value" id="mTotal">—</div><div class="mc-sub">Rap + trap + hip-hop BR</div></div>
     <div class="mc"><div class="mc-label">Artistas únicos</div><div class="mc-value" id="mArtists">—</div><div class="mc-sub">Cena nacional</div></div>
     <div class="mc"><div class="mc-label">Com preview</div><div class="mc-value" id="mPrev">—</div><div class="mc-sub">Ouça 30 seg.</div></div>
-    <div class="mc"><div class="mc-label">Fonte</div><div class="mc-value" style="font-size:15px;margin-top:4px">Deezer</div><div class="mc-sub">Dados em tempo real</div></div>
+    <div class="mc"><div class="mc-label">Ranking rádios BR</div><div class="mc-value" style="font-size:13px;margin-top:6px"><a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank" style="color:#a78bfa;text-decoration:none;border-bottom:1px solid #2d2850;padding-bottom:2px">maistocadas.mus.br ↗</a></div><div class="mc-sub">7.000+ emissoras BR</div></div>
   </div>
-  <div class="filters">
-    <span style="font-size:12px;color:#888">Gênero:</span>
+
+  <div class="toolbar">
+    <span class="filter-label">Gênero:</span>
     <button class="fb active" onclick="setFilter('todos',this)">Todos</button>
     <button class="fb" onclick="setFilter('rap',this)">Rap</button>
     <button class="fb" onclick="setFilter('trap',this)">Trap</button>
     <button class="fb" onclick="setFilter('hip-hop',this)">Hip-hop</button>
     <input class="si" type="text" placeholder="Buscar artista ou música..." oninput="setSearch(this.value)">
   </div>
+
   <div class="tw">
     <div class="thead">
       <div class="th">#</div>
@@ -87,23 +126,32 @@ footer { font-size: 11px; color: #bbb; margin-top: 1rem; padding-top: 0.75rem; b
       <div class="th">Álbum</div>
       <div class="th">Gravadora</div>
       <div class="th">Play</div>
-      <div class="th">Popularidade</div>
     </div>
-    <div id="tableBody"><div class="loading-row">Iniciando...</div></div>
+    <div id="tableBody"><div class="loading-row">Buscando faixas...</div></div>
   </div>
+
   <div class="player-bar" id="playerBar">
-    <div id="playerCover" style="width:40px;height:40px;border-radius:6px;background:#f0f0f0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;">♪</div>
+    <div class="player-cover" id="playerCover">♪</div>
     <div class="player-info">
       <div class="player-title" id="playerTitle">—</div>
-      <div class="player-sub" id="playerArtist">—</div>
+      <div class="player-artist" id="playerArtist">—</div>
+      <div class="player-tag">Preview 30s · Deezer</div>
     </div>
     <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
     <div class="dur" id="durEl">0:00</div>
-    <button class="playbtn" onclick="stopAudio()" style="flex-shrink:0">&#9646;&#9646;</button>
+    <button class="stop-btn" onclick="stopAudio()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="1" width="4" height="10"/><rect x="7" y="1" width="4" height="10"/></svg>
+    </button>
   </div>
-  <footer>Dados via Deezer API · rap-dashboard1.vercel.app</footer>
+
+  <div class="footer">
+    <span>Dados em tempo real via Deezer API · Popularidade = índice relativo Deezer (0–100)</span>
+    <span>Execuções em rádio: <a href="https://maistocadas.mus.br/musicas-mais-tocadas/" target="_blank">maistocadas.mus.br</a> · <a href="https://www4.ecad.org.br/ranking/" target="_blank">eCad Ranking</a></span>
+  </div>
 </div>
+
 <audio id="audioEl"></audio>
+
 <script>
 const BASE_URL = 'https://rap-dashboard1.vercel.app';
 let allTracks = [], currentFilter = 'todos', currentSearch = '', currentBtn = null, progInterval = null;
@@ -112,8 +160,8 @@ const queries = [
   { q: 'rap brasileiro', genre: 'rap' },
   { q: 'trap brasil', genre: 'trap' },
   { q: 'hip hop nacional', genre: 'hip-hop' },
-  { q: 'matuê djonga emicida criolo', genre: 'rap' },
-  { q: 'mc hariel orochi teto xamã', genre: 'trap' },
+  { q: 'matuê djonga emicida criolo baco', genre: 'rap' },
+  { q: 'mc hariel orochi teto xamã azzy', genre: 'trap' },
 ];
 
 function setStatus(msg) { document.getElementById('lastUpdate').textContent = msg; }
@@ -122,17 +170,11 @@ async function searchDeezer(q, genre) {
   const res = await fetch(`${BASE_URL}/api/search?q=${encodeURIComponent(q)}&limit=25`);
   const data = await res.json();
   return (data.data || []).map(t => ({
-    id: t.id,
-    name: t.title,
-    artist: t.artist.name,
-    album: t.album.title,
-    albumId: t.album.id,
-    cover: t.album.cover_small,
-    preview: t.preview,
-    duration: t.duration,
-    rank: t.rank,
-    _genre: genre,
-    _label: 'Independente'
+    id: t.id, name: t.title, artist: t.artist.name,
+    album: t.album.title, albumId: t.album.id,
+    cover: t.album.cover_small, preview: t.preview,
+    duration: t.duration, rank: t.rank,
+    _genre: genre, _label: 'Independente'
   }));
 }
 
@@ -177,27 +219,29 @@ function filtered() {
   return d;
 }
 
+function rankClass(i) { return i===0?'top1':i===1?'top2':i===2?'top3':''; }
+
 function renderTable() {
   const data = filtered();
   const body = document.getElementById('tableBody');
   if (!data.length) { body.innerHTML = '<div class="loading-row">Nenhuma faixa encontrada.</div>'; return; }
-  const playIcon = '&#9654;';
+  const playIcon = `<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>`;
   body.innerHTML = data.map((t, i) => {
     const coverEl = t.cover ? `<img class="cover" src="${t.cover}" alt="">` : `<div class="cover-ph">♪</div>`;
     const dur = t.duration ? `${Math.floor(t.duration/60)}:${String(t.duration%60).padStart(2,'0')}` : '—';
     const pop = Math.min(100, Math.round((t.rank||0)/10000));
-    const popEl = `<div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span style="font-size:11px;color:#888">${pop}/100</span></div>`;
+    const popEl = `<div class="pop-wrap"><div class="pop-bar"><div class="pop-fill" style="width:${pop}%"></div></div><span class="pop-num">${pop}</span></div>`;
     const prev = (t.preview||'').replace(/'/g,"\\'");
-    const tit = t.name.replace(/'/g,"\\'");
-    const art = t.artist.replace(/'/g,"\\'");
+    const tit = t.name.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+    const art = t.artist.replace(/'/g,"\\'").replace(/"/g,'&quot;');
     const cov = (t.cover||'').replace(/'/g,"\\'");
     const playBtn = t.preview
       ? `<button class="playbtn" id="pbtn-${t.id}" onclick="togglePlay('${t.id}','${prev}','${tit}','${art}','${cov}')">${playIcon}</button>`
-      : `<span style="color:#ddd;font-size:12px">—</span>`;
+      : `<span style="color:#2a2a3a;font-size:12px">—</span>`;
     return `<div class="row">
-      <div class="rank ${i<3?'top':''}">${i+1}</div>
+      <div class="rank ${rankClass(i)}">${i+1}</div>
       <div>${coverEl}</div>
-      <div><div class="st">${t.name}<span class="gpill">${t._genre}</span></div><div class="ss">${dur}</div></div>
+      <div><div class="song-name">${t.name}<span class="gpill">${t._genre}</span></div><div class="song-dur">${dur}</div></div>
       <div class="cell">${t.artist}</div>
       <div class="cell-sec">${t.album}</div>
       <div><span class="lp" title="${t._label}">${t._label}</span></div>
@@ -206,13 +250,22 @@ function renderTable() {
   }).join('');
 }
 
-function setFilter(f, btn) { currentFilter = f; document.querySelectorAll('.fb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTable(); }
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
 function setSearch(v) { currentSearch = v; renderTable(); }
 
 function stopAudio() {
   const audio = document.getElementById('audioEl');
   audio.pause(); audio.src = '';
-  if (currentBtn) { currentBtn.classList.remove('playing'); currentBtn.innerHTML = '&#9654;'; }
+  if (currentBtn) {
+    currentBtn.classList.remove('playing');
+    currentBtn.innerHTML = `<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>`;
+  }
   clearInterval(progInterval);
   document.getElementById('playerBar').classList.remove('visible');
   document.getElementById('progFill').style.width = '0%';
@@ -225,11 +278,12 @@ function togglePlay(id, preview, title, artist, cover) {
   if (currentBtn === btn && !audio.paused) { stopAudio(); return; }
   stopAudio();
   currentBtn = btn;
-  btn.classList.add('playing'); btn.innerHTML = '&#9646;&#9646;';
+  btn.classList.add('playing');
+  btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="1" width="4" height="10"/><rect x="7" y="1" width="4" height="10"/></svg>`;
   document.getElementById('playerTitle').textContent = title;
   document.getElementById('playerArtist').textContent = artist;
   const pc = document.getElementById('playerCover');
-  pc.innerHTML = cover ? `<img src="${cover}" style="width:40px;height:40px;border-radius:6px;object-fit:cover">` : '♪';
+  pc.innerHTML = cover ? `<img src="${cover}" style="width:44px;height:44px;border-radius:8px;object-fit:cover">` : '♪';
   document.getElementById('playerBar').classList.add('visible');
   audio.src = preview; audio.play().catch(()=>{});
   clearInterval(progInterval);
